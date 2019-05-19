@@ -15,4 +15,18 @@ let Letter = function(letter){
         };
     };
 
-}
+    // if the guessed letter matches the 'letter' value, we change the 'guessed' value off the
+    //letter object to true
+
+    this.checkGuess = function(guess){
+        if(guess === this.letter){
+            this.guessed = true;
+        }
+
+    };
+
+};
+
+
+//exporting to word.js
+module.exports = Letter;
