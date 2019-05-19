@@ -66,4 +66,48 @@ function guessWord(guess, actual) {
         }
       }
     ])
+    .then(function(answer) {
+      //Converts input to upper case to make things easier to compare. Then we use the constructor methods from Word.js to see if
+      //the letter is in the word being guessed.
+      guess.checkGuessWord(answer.guessLetter.toUpperCase());
+
+      //We want to get the boolean value for each Letter object in the Word so we can see if there are any false values. If there are
+      //then the word is still being guessed on. Also, we want to get all the letters in the word so that we can see if the letter
+      //is in the word. The checkGuessWord function above does not do that (though it could be written as if it was).
+      guess.lettersArr.forEach(function(element) {
+        letterWordArr.push(element.letter);
+        guessArr.push(element.guessed);
+      });
+
+      if (letterWordArr.indexOf(answer.guessLetter.toUpperCase()) > -1) {
+        console.log("");
+        console.log("CORRECT!!!");
+      } else {
+        console.log("");
+        console.log("Incorrect!");
+        numGuesses--;
+        console.log(`You have ${numGuesses} tries remaining.`);
+      }
+
+      //If the word is not fully guessed and the player still has tries available, then the function asks for another letter
+      //by calling itself
+      if (guessArr.indexOf(false) > -1 && numGuesses > 0) {
+        guessWord(guess, actual);
+      }
+      //Otherwise, we need to indicate if the user won or lost
+      else {
+        //Show the correct word whether the user won or lost
+
+        if (numGuesses === 0) {
+          console.log("");
+          console.log("You lose.");
+          console.log(`The word was ${actual}!`);
+          console.log("");
+        } else {
+          console.log("");
+          console.log("You did it!");
+          console.log(`The word was ${actual}`);
+          console.log("");
+        }
+
 
