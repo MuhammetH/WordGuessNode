@@ -110,4 +110,29 @@ function guessWord(guess, actual) {
           console.log("");
         }
 
+        //Then ask if the user wants to play again.
+        inquire
+          .prompt([
+            {
+              type: "confirm",
+              name: "playAgain",
+              message: "Would you like to play again?",
+              default: true
+            }
+          ])
+          .then(function(answer) {
+            //If yes, a new game starts.
+            if (answer.playAgain) {
+              playGame();
+            }
+            //If not, the program stops.
+            else {
+              process.exit();
+            }
+          });
+      }
+    });
+}
 
+//Start the game when the file is called in the terminal
+playGame();
