@@ -8,15 +8,42 @@ let Word = function(word){
     this.lettersArr = [];
 
     for(let i = 0; i < word.length; i++){
-        if(word.chaAt(i)=== " "){
+        if(word.charAt(i)=== " "){
             this.lettersArr.push(" ");
         }
         else{
-            this.lettersArr.push(new Letter(word.chaAt(i)));
+            this.lettersArr.push(new Letter(word.charAt(i)));
         };
     };
 
-    this.
+    this.createString = function(){
+        let wordString = "";
+
+        this.lettersArr.forEach(function(element) {
+            if(element === " "){
+                wordString += "  ";
+            }
+            else{
+                wordString += element.displayLetter();
+            }
+        });
+        return wordString;
+    }
+
+    //When letter is guessed, the word object checks each letter object and  changes the 
+    //value to true if the guessed letter is correct.
+    this.checkGuessWord = function(letterGuess){
+        this.lettersArr.forEach(function(element){
+
+            if(element.letter !== undefined){
+                element.checkGuess(letterGuess);
+            }
+        });
+    };
 
 
-}
+};
+
+//exporting to index.js file.
+
+module.exports = Word;
